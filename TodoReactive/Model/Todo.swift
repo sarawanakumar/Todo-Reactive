@@ -10,4 +10,5 @@ import Foundation
 
 struct Todo {
     var name: String
+    var isComplete: Bool
 }

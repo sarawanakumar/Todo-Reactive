@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewController = UIStoryboard(
             name: "Main",
             bundle: nil
-        ).instantiateInitialViewController() as? ViewController
+        ).instantiateInitialViewController() as? TodoViewController
         viewController?.viewModel = TodoViewModel(name: "")
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()

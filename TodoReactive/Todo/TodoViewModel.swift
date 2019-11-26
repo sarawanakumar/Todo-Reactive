@@ -28,7 +28,7 @@ class TodoViewModel: BaseViewModel {
         )
     }
 
-    func send(action: TodoViewModel.Action) {
+    func send(action: Action) {
         input.observer(.ui(.buttonTapped))
     }
 
@@ -46,6 +46,14 @@ class TodoViewModel: BaseViewModel {
     struct State: Then {
         var shouldHideLabel = true
         var items: [Todo]
+
+//        var todoCellModel: [TodoCellViewModel] {
+//            return items.map { item -> TodoCellViewModel in
+////                let dateFormatter = DateFormatter()
+////                dateFormatter.dateFormat = "MMM DD"
+//                
+//            }
+//        }
     }
 
     enum Event {
