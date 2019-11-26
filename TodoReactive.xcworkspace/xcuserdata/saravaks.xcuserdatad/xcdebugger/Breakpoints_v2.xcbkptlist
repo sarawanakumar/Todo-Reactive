@@ -23,69 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DBD7A14C-3531-4EC4-A869-384A8F6246A8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoReactive/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "DBD7A14C-3531-4EC4-A869-384A8F6246A8 - dc0c03c268c9ba39"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TodoReactive.BaseViewController.viewWillAppear(Swift.Bool) -&gt; ()"
-                  moduleName = "TodoReactive"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/saravaks/Documents/Saravana/Imp/ios/TodoReactive/TodoReactive/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "595">
-               </Location>
-               <Location
-                  uuid = "DBD7A14C-3531-4EC4-A869-384A8F6246A8 - dc0c03c268c9ba39"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TodoReactive.BaseViewController.viewWillAppear(Swift.Bool) -&gt; ()"
-                  moduleName = "TodoReactive"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/saravaks/Documents/Saravana/Imp/ios/TodoReactive/TodoReactive/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "751">
-               </Location>
-               <Location
-                  uuid = "DBD7A14C-3531-4EC4-A869-384A8F6246A8 - 5eccc73a3c0efcc7"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (A.Action) -&gt; () in TodoReactive.BaseViewController.viewWillAppear(Swift.Bool) -&gt; ()"
-                  moduleName = "TodoReactive"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/saravaks/Documents/Saravana/Imp/ios/TodoReactive/TodoReactive/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "109">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "0F1AA957-B71E-4D73-ABC8-6197EF86CB42"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"

@@ -10,6 +10,9 @@
 		152AFE6A238CF78600747492 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AFE69238CF78600747492 /* TodoViewModel.swift */; };
 		152AFE6C238CF80400747492 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AFE6B238CF80400747492 /* Todo.swift */; };
 		152AFE6E238D394600747492 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AFE6D238D394600747492 /* Then.swift */; };
+		152AFE71238D3D8100747492 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AFE70238D3D8100747492 /* BaseViewModel.swift */; };
+		152AFE73238D3D9000747492 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AFE72238D3D9000747492 /* BaseViewController.swift */; };
+		152AFE75238D3DA700747492 /* Feedback+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AFE74238D3DA700747492 /* Feedback+Extension.swift */; };
 		1573E5CA238CEB7F0074F9FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573E5C9238CEB7F0074F9FC /* AppDelegate.swift */; };
 		1573E5CC238CEB7F0074F9FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573E5CB238CEB7F0074F9FC /* SceneDelegate.swift */; };
 		1573E5CE238CEB7F0074F9FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573E5CD238CEB7F0074F9FC /* ViewController.swift */; };
@@ -36,6 +39,9 @@
 		152AFE69238CF78600747492 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		152AFE6B238CF80400747492 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		152AFE6D238D394600747492 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
+		152AFE70238D3D8100747492 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		152AFE72238D3D9000747492 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		152AFE74238D3DA700747492 /* Feedback+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feedback+Extension.swift"; sourceTree = "<group>"; };
 		1573E5C6238CEB7F0074F9FC /* TodoReactive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoReactive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1573E5C9238CEB7F0074F9FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1573E5CB238CEB7F0074F9FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +80,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		152AFE6F238D3D2600747492 /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				152AFE6D238D394600747492 /* Then.swift */,
+				152AFE70238D3D8100747492 /* BaseViewModel.swift */,
+				152AFE72238D3D9000747492 /* BaseViewController.swift */,
+				152AFE74238D3DA700747492 /* Feedback+Extension.swift */,
+			);
+			path = Contract;
+			sourceTree = "<group>";
+		};
 		1573E5BD238CEB7F0074F9FC = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +114,7 @@
 		1573E5C8238CEB7F0074F9FC /* TodoReactive */ = {
 			isa = PBXGroup;
 			children = (
+				152AFE6F238D3D2600747492 /* Contract */,
 				1573E5C9238CEB7F0074F9FC /* AppDelegate.swift */,
 				1573E5CB238CEB7F0074F9FC /* SceneDelegate.swift */,
 				1573E5CD238CEB7F0074F9FC /* ViewController.swift */,
@@ -106,7 +124,6 @@
 				1573E5D7238CEB820074F9FC /* Info.plist */,
 				152AFE69238CF78600747492 /* TodoViewModel.swift */,
 				152AFE6B238CF80400747492 /* Todo.swift */,
-				152AFE6D238D394600747492 /* Then.swift */,
 			);
 			path = TodoReactive;
 			sourceTree = "<group>";
@@ -311,7 +328,10 @@
 				152AFE6A238CF78600747492 /* TodoViewModel.swift in Sources */,
 				1573E5CE238CEB7F0074F9FC /* ViewController.swift in Sources */,
 				1573E5CA238CEB7F0074F9FC /* AppDelegate.swift in Sources */,
+				152AFE71238D3D8100747492 /* BaseViewModel.swift in Sources */,
 				1573E5CC238CEB7F0074F9FC /* SceneDelegate.swift in Sources */,
+				152AFE75238D3DA700747492 /* Feedback+Extension.swift in Sources */,
+				152AFE73238D3D9000747492 /* BaseViewController.swift in Sources */,
 				152AFE6E238D394600747492 /* Then.swift in Sources */,
 				152AFE6C238CF80400747492 /* Todo.swift in Sources */,
 			);
