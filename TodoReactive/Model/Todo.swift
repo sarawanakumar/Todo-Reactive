@@ -8,7 +8,15 @@
 
 import Foundation
 
-struct Todo {
-    var name: String
-    var isComplete: Bool
+struct TodoElement: Codable {
+    let id: Int
+    let todoDescription, scheduledDate, status: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case todoDescription = "description"
+        case scheduledDate, status
+    }
 }
+
+typealias Todo = [TodoElement]

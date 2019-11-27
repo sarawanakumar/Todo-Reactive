@@ -11,29 +11,40 @@ import ReactiveSwift
 
 class TodoViewController: BaseViewController<TodoViewModel> {
     @IBOutlet weak var tableView: UITableView!
-    var cellViewModel: Property<[TodoCellViewModel]>!
+    var cellViewModels = [TodoCellViewModel]()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.register(
+            UINib(nibName: "TodoTableViewCell", bundle: nil),
+            forCellReuseIdentifier: "todoCell"
+        )
+    }
 
     override func refresh(_ state: TodoViewModel.State) {
-        let data = state.items.map { todoItem in
+        cellViewModels = state.items.map {
             TodoCellViewModel(
-                name: todoItem.name,
-                isCompleted: todoItem.isComplete,
-                taskToggled: send!
+                name: $0.todoDescription,
+                isCompleted: true,
+                taskToggled: { [weak self] in
+                    self?.send?(.buttonTapped)
+                }
             )
         }
-        cellViewModel = Property(value: data)
+        tableView.reloadData()
     }
 }
 
 extension TodoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellViewModel.value.count
+        return cellViewModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoTableViewCell else { return UITableViewCell() }
 
-        cell.cellViewModel = Property(value: cellViewModel.value[indexPath.row])
+        cell.viewModel = Property(value: cellViewModels[indexPath.row])
         return cell
     }
 }

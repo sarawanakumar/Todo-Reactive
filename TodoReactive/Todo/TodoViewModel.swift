@@ -23,9 +23,20 @@ class TodoViewModel: BaseViewModel {
             scheduler: scheduler,
             reduce: TodoViewModel.reduce,
             feedbacks: [
-                input.feedback
+                input.feedback,
+                TodoViewModel.whenLoading(TodoService())
             ]
         )
+    }
+
+    static func whenLoading(_ todoService: TodoService) -> Feedback<State, Event> {
+        return Feedback(predicate: { (state: State) in
+            state.isPageLoading
+        }) { _ -> SignalProducer<Event, Never> in
+            return todoService.getTodoList()
+                .map { .didLoad($0) }
+                .flatMapError { _ in .never }
+        }
     }
 
     func send(action: Action) {
@@ -36,6 +47,11 @@ class TodoViewModel: BaseViewModel {
         switch event {
         case .select:
             return state
+        case .didLoad(let todo):
+            return state.with {
+                $0.items = todo
+                $0.isPageLoading = false
+            }
         case .ui(.buttonTapped):
             return state.with {
                 $0.shouldHideLabel = !$0.shouldHideLabel
@@ -45,19 +61,19 @@ class TodoViewModel: BaseViewModel {
 
     struct State: Then {
         var shouldHideLabel = true
-        var items: [Todo]
+        var items: Todo
+        var isPageLoading = true
 
-//        var todoCellModel: [TodoCellViewModel] {
-//            return items.map { item -> TodoCellViewModel in
-////                let dateFormatter = DateFormatter()
-////                dateFormatter.dateFormat = "MMM DD"
-//                
-//            }
-//        }
+        enum Status {
+            case loading
+            case displayed
+            case failed
+        }
     }
 
     enum Event {
         case select
+        case didLoad(Todo)
         case ui(Action)
     }
 

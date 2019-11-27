@@ -22,6 +22,9 @@
 		1573E5D3238CEB820074F9FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1573E5D2238CEB820074F9FC /* Assets.xcassets */; };
 		1573E5D6238CEB820074F9FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1573E5D4238CEB820074F9FC /* LaunchScreen.storyboard */; };
 		1573E5E1238CEB820074F9FC /* TodoReactiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573E5E0238CEB820074F9FC /* TodoReactiveTests.swift */; };
+		1582CF77238D9A5300312DD9 /* ServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1582CF76238D9A5300312DD9 /* ServiceHandler.swift */; };
+		1582CF79238D9A7200312DD9 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1582CF78238D9A7200312DD9 /* Error.swift */; };
+		158E7FEA238E5A400061AC09 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158E7FE9238E5A400061AC09 /* TodoService.swift */; };
 		2FAAF8C0BA746C605F4C3CB1 /* Pods_TodoReactive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F7F62189F53612955A69CB /* Pods_TodoReactive.framework */; };
 		72751001F09939847CE44EAC /* Pods_TodoReactiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71CFA497B0F6C01CEDA342A8 /* Pods_TodoReactiveTests.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +60,9 @@
 		1573E5DC238CEB820074F9FC /* TodoReactiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoReactiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1573E5E0238CEB820074F9FC /* TodoReactiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoReactiveTests.swift; sourceTree = "<group>"; };
 		1573E5E2238CEB820074F9FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1582CF76238D9A5300312DD9 /* ServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHandler.swift; sourceTree = "<group>"; };
+		1582CF78238D9A7200312DD9 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		158E7FE9238E5A400061AC09 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
 		21D854D14582804BFC84807C /* Pods-TodoReactiveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoReactiveTests.debug.xcconfig"; path = "Target Support Files/Pods-TodoReactiveTests/Pods-TodoReactiveTests.debug.xcconfig"; sourceTree = "<group>"; };
 		70F7F62189F53612955A69CB /* Pods_TodoReactive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoReactive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71CFA497B0F6C01CEDA342A8 /* Pods_TodoReactiveTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoReactiveTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +122,8 @@
 		152AFE78238D446500747492 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				1582CF76238D9A5300312DD9 /* ServiceHandler.swift */,
+				158E7FE9238E5A400061AC09 /* TodoService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -127,6 +135,7 @@
 				1573E5D4238CEB820074F9FC /* LaunchScreen.storyboard */,
 				1573E5C9238CEB7F0074F9FC /* AppDelegate.swift */,
 				1573E5CB238CEB7F0074F9FC /* SceneDelegate.swift */,
+				1582CF78238D9A7200312DD9 /* Error.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -384,10 +393,13 @@
 				1573E5CE238CEB7F0074F9FC /* TodoViewController.swift in Sources */,
 				1573E5CA238CEB7F0074F9FC /* AppDelegate.swift in Sources */,
 				152AFE7E238D48B700747492 /* TodoTableViewCell.swift in Sources */,
+				1582CF79238D9A7200312DD9 /* Error.swift in Sources */,
 				152AFE71238D3D8100747492 /* BaseViewModel.swift in Sources */,
 				1573E5CC238CEB7F0074F9FC /* SceneDelegate.swift in Sources */,
+				158E7FEA238E5A400061AC09 /* TodoService.swift in Sources */,
 				152AFE75238D3DA700747492 /* Feedback+Extension.swift in Sources */,
 				152AFE73238D3D9000747492 /* BaseViewController.swift in Sources */,
+				1582CF77238D9A5300312DD9 /* ServiceHandler.swift in Sources */,
 				152AFE6E238D394600747492 /* Then.swift in Sources */,
 				152AFE6C238CF80400747492 /* Todo.swift in Sources */,
 			);

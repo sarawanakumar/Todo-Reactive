@@ -12,27 +12,25 @@ import ReactiveSwift
 class TodoTableViewCell: UITableViewCell {
     @IBOutlet weak var itemDescriptionLabel: UILabel!
     @IBOutlet weak var isCompletedSwitch: UISwitch!
-    private var send: ((TodoViewController.Action) -> Void)?
+    private var switchDidToggle: (() -> Void)?
 
-    var cellViewModel: Property<TodoCellViewModel>!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        cellViewModel.producer.startWithValues { [unowned self] model in
-            self.itemDescriptionLabel.text = model.name
-            self.isCompletedSwitch.setOn(model.isCompleted, animated: true)
-            self.send = model.taskToggled
+    var viewModel: Property<TodoCellViewModel>! {
+        didSet {
+            viewModel.producer.startWithValues { [unowned self] model in
+                self.itemDescriptionLabel.text = model.name
+                self.isCompletedSwitch.setOn(model.isCompleted, animated: true)
+                self.switchDidToggle = model.taskToggled
+            }
         }
     }
 
     @IBAction func toggleTask(sender: UISwitch) {
-        send?(.buttonTapped)
+        switchDidToggle?()
     }
 }
 
 struct TodoCellViewModel {
     var name: String
     var isCompleted: Bool
-    var taskToggled: (TodoViewModel.Action) -> Void
+    var taskToggled: () -> Void
 }
