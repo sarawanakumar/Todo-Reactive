@@ -23,16 +23,23 @@ class TodoViewController: BaseViewController<TodoViewModel> {
     }
 
     override func refresh(_ state: TodoViewModel.State) {
-        cellViewModels = state.items.map {
-            TodoCellViewModel(
-                name: $0.todoDescription,
-                isCompleted: true,
-                taskToggled: { [weak self] in
-                    self?.send?(.buttonTapped)
-                }
-            )
+        switch state.pageStatus {
+        case .displayed:
+            cellViewModels = state.items.map { todoItem in
+                TodoCellViewModel(
+                    name: todoItem.todoDescription,
+                    isCompleted: todoItem.isTodoCompleted,
+                    taskToggled: { [weak self] in
+                        self?.send?(.toggleTask(id: todoItem.id))
+                    }
+                )
+            }
+            tableView.reloadData()
+        case .failed:
+            ()
+        case .loading:
+            ()
         }
-        tableView.reloadData()
     }
 }
 

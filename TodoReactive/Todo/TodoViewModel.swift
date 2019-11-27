@@ -31,7 +31,7 @@ class TodoViewModel: BaseViewModel {
 
     static func whenLoading(_ todoService: TodoService) -> Feedback<State, Event> {
         return Feedback(predicate: { (state: State) in
-            state.isPageLoading
+            state.pageStatus == .loading
         }) { _ -> SignalProducer<Event, Never> in
             return todoService.getTodoList()
                 .map { .didLoad($0) }
@@ -40,29 +40,35 @@ class TodoViewModel: BaseViewModel {
     }
 
     func send(action: Action) {
-        input.observer(.ui(.buttonTapped))
+        input.observer(.ui(action))
     }
 
     static func reduce(state: State, event: Event) -> State {
         switch event {
-        case .select:
-            return state
         case .didLoad(let todo):
             return state.with {
                 $0.items = todo
-                $0.isPageLoading = false
+                $0.pageStatus = .displayed
             }
-        case .ui(.buttonTapped):
+        case .ui(.toggleTask(let taskId)):
             return state.with {
-                $0.shouldHideLabel = !$0.shouldHideLabel
+                guard let task = $0.items
+                    .filter({$0.id == taskId})
+                    .first else { return }
+
+                var newTask = task
+                newTask.isTodoCompleted = !task.isTodoCompleted
+
+                $0.items.removeAll(where: {$0.id == taskId})
+                $0.items.append(newTask)
+                $0.items.sort { $0.id < $1.id }
             }
         }
     }
 
     struct State: Then {
-        var shouldHideLabel = true
         var items: Todo
-        var isPageLoading = true
+        var pageStatus: Status = .loading
 
         enum Status {
             case loading
@@ -72,12 +78,11 @@ class TodoViewModel: BaseViewModel {
     }
 
     enum Event {
-        case select
         case didLoad(Todo)
         case ui(Action)
     }
 
     enum Action {
-        case buttonTapped
+        case toggleTask(id: Int)
     }
 }

@@ -10,7 +10,21 @@ import Foundation
 
 struct TodoElement: Codable {
     let id: Int
-    let todoDescription, scheduledDate, status: String
+    let todoDescription, scheduledDate: String
+    var status: String
+
+    var isTodoCompleted: Bool {
+        get {
+            if status == "COMPLETED" {
+                return true
+            }
+
+            return false
+        }
+        set {
+            status = newValue ? "COMPLETED" : "PENDING"
+        }
+    }
 
     enum CodingKeys: String, CodingKey {
         case id
