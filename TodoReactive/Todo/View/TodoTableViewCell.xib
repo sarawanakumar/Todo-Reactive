@@ -16,29 +16,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sb-MS-iCe">
-                        <rect key="frame" x="16" y="11.5" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mqo-sD-og4">
-                        <rect key="frame" x="253" y="6.5" width="51" height="31"/>
+                        <rect key="frame" x="16" y="6.5" width="51" height="31"/>
                         <connections>
                             <action selector="toggleTaskWithSender:" destination="KGk-i7-Jjw" eventType="valueChanged" id="yFx-of-DR2"/>
                         </connections>
                     </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sb-MS-iCe">
+                        <rect key="frame" x="75" y="11.5" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VCg-4k-lAW">
+                        <rect key="frame" x="264.5" y="12.5" width="39.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="4sb-MS-iCe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="3m7-O0-vA3"/>
-                    <constraint firstAttribute="trailing" secondItem="mqo-sD-og4" secondAttribute="trailing" constant="18" id="8T8-WR-U5e"/>
                     <constraint firstItem="mqo-sD-og4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Azb-Bb-OAD"/>
+                    <constraint firstItem="mqo-sD-og4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="BpK-Zz-Mhq"/>
                     <constraint firstItem="4sb-MS-iCe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="L5R-HD-BAZ"/>
+                    <constraint firstItem="4sb-MS-iCe" firstAttribute="leading" secondItem="mqo-sD-og4" secondAttribute="trailing" constant="10" id="e3B-ya-sty"/>
+                    <constraint firstItem="VCg-4k-lAW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hb2-5r-rYm"/>
+                    <constraint firstAttribute="trailing" secondItem="VCg-4k-lAW" secondAttribute="trailing" constant="16" id="jud-li-I14"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="isCompletedSwitch" destination="mqo-sD-og4" id="gpb-Hx-Y4v"/>
+                <outlet property="itemDateLabel" destination="VCg-4k-lAW" id="hQG-1M-qo8"/>
                 <outlet property="itemDescriptionLabel" destination="4sb-MS-iCe" id="0uw-Ay-vJ8"/>
             </connections>
             <point key="canvasLocation" x="139" y="139"/>

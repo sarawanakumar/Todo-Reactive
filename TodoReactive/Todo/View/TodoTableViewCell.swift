@@ -11,6 +11,7 @@ import ReactiveSwift
 
 class TodoTableViewCell: UITableViewCell {
     @IBOutlet weak var itemDescriptionLabel: UILabel!
+    @IBOutlet weak var itemDateLabel: UILabel!
     @IBOutlet weak var isCompletedSwitch: UISwitch!
     private var switchDidToggle: (() -> Void)?
 
@@ -18,6 +19,7 @@ class TodoTableViewCell: UITableViewCell {
         didSet {
             self.itemDescriptionLabel.text = viewModel.name
             self.isCompletedSwitch.setOn(viewModel.isCompleted, animated: true)
+            self.itemDateLabel.text = viewModel.dueDate
             self.switchDidToggle = viewModel.taskToggled
         }
     }
@@ -30,5 +32,6 @@ class TodoTableViewCell: UITableViewCell {
 struct TodoCellViewModel {
     var name: String
     var isCompleted: Bool
+    var dueDate: String
     var taskToggled: () -> Void
 }

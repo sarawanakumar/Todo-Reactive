@@ -13,6 +13,15 @@ struct TodoElement: Codable {
     let todoDescription, scheduledDate: String
     var status: String
 
+    var formattedDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMddHHmm"
+
+        guard let date = dateFormatter.date(from: scheduledDate) else { return "" }
+        dateFormatter.dateFormat = "MMM dd"
+        return dateFormatter.string(from: date)
+    }
+
     var todoStatus: TodoStatus {
         get {
             if status == "COMPLETED" {

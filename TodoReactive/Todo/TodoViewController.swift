@@ -35,6 +35,7 @@ class TodoViewController: BaseViewController<TodoViewModel> {
                         TodoCellViewModel(
                             name: todoItem.todoDescription,
                             isCompleted: todoItem.todoStatus == .completed,
+                            dueDate: todoItem.formattedDate,
                             taskToggled: { [weak self] in
                                 self?.send?(
                                     .toggleTask(
