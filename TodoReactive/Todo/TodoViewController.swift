@@ -37,7 +37,10 @@ class TodoViewController: BaseViewController<TodoViewModel> {
                             isCompleted: todoItem.todoStatus == .completed,
                             taskToggled: { [weak self] in
                                 self?.send?(
-                                    .toggleTask(id: todoItem.id)
+                                    .toggleTask(
+                                        id: todoItem.id,
+                                        currentStatus: todoItem.todoStatus
+                                    )
                                 )
                             }
                         )

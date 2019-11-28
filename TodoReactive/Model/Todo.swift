@@ -37,6 +37,15 @@ struct TodoElement: Codable {
     enum TodoStatus {
         case completed
         case pending
+
+        mutating func toggle() {
+            switch self {
+            case .completed:
+                self = .pending
+            case .pending:
+                self = .completed
+            }
+        }
     }
 
     enum CodingKeys: String, CodingKey {

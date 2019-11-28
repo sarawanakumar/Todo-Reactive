@@ -13,7 +13,7 @@ class TodoViewModel: BaseViewModel {
     let input = Feedback<State, Event>.input()
     let state: Property<State>
 
-    convenience init(service: TodoService = TodoService()) {
+    convenience init(service: TodoService) {
         self.init(
             initial: State(items: [:]),
             scheduler: UIScheduler(),
@@ -54,18 +54,16 @@ class TodoViewModel: BaseViewModel {
                 $0.items = TodoElement.arrangedTasks(todos: todos)
                 $0.pageStatus = .displayed
             }
-        case .ui(.toggleTask(let taskId)):
-            return state.with { s in
-//                guard let task = $0.items
-//                    .filter({$0.id == taskId})
-//                    .first else { return }
-//
-//                var newTask = task
-//                newTask.isTodoCompleted = !task.isTodoCompleted
-//
-//                $0.items.removeAll(where: {$0.id == taskId})
-//                $0.items.append(newTask)
-//                $0.items.sort { $0.id < $1.id }
+        case .ui(.toggleTask(let taskId, let taskStatus)):
+            return state.with {
+                guard let task = $0.items[taskStatus]?
+                    .first(where: { $0.id == taskId }) else { return }
+
+                $0.items[taskStatus]?.removeAll { $0.id == taskId }
+
+                var newTask = task
+                newTask.todoStatus.toggle()
+                $0.items[newTask.todoStatus]?.append(newTask)
             }
         }
     }
@@ -87,6 +85,6 @@ class TodoViewModel: BaseViewModel {
     }
 
     enum Action {
-        case toggleTask(id: Int)
+        case toggleTask(id: Int, currentStatus: TodoElement.TodoStatus)
     }
 }
