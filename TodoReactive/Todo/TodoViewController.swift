@@ -11,13 +11,16 @@ import ReactiveSwift
 
 class TodoViewController: BaseViewController<TodoViewModel> {
     @IBOutlet weak var tableView: UITableView!
-    var cellViewModels = [TodoCellViewModel]()
+    var cellViewModels = [TodoElement.TodoStatus: [TodoCellViewModel]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.register(
-            UINib(nibName: "TodoTableViewCell", bundle: nil),
+            UINib(
+                nibName: "TodoTableViewCell",
+                bundle: nil
+            ),
             forCellReuseIdentifier: "todoCell"
         )
     }
@@ -25,14 +28,20 @@ class TodoViewController: BaseViewController<TodoViewModel> {
     override func refresh(_ state: TodoViewModel.State) {
         switch state.pageStatus {
         case .displayed:
-            cellViewModels = state.items.map { todoItem in
-                TodoCellViewModel(
-                    name: todoItem.todoDescription,
-                    isCompleted: todoItem.isTodoCompleted,
-                    taskToggled: { [weak self] in
-                        self?.send?(.toggleTask(id: todoItem.id))
-                    }
-                )
+            let allStatus: [TodoElement.TodoStatus] = [.completed, .pending]
+            for status in allStatus {
+                cellViewModels[status] = state.items[status]?
+                    .map { todoItem in
+                        TodoCellViewModel(
+                            name: todoItem.todoDescription,
+                            isCompleted: todoItem.todoStatus == .completed,
+                            taskToggled: { [weak self] in
+                                self?.send?(
+                                    .toggleTask(id: todoItem.id)
+                                )
+                            }
+                        )
+                }
             }
             tableView.reloadData()
         case .failed:
@@ -44,15 +53,45 @@ class TodoViewController: BaseViewController<TodoViewModel> {
 }
 
 extension TodoViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return cellViewModels.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return cellViewModels[.pending]?.count ?? 0
+        case 1:
+            return cellViewModels[.completed]?.count ?? 0
+        default:
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoTableViewCell else { return UITableViewCell() }
 
-        cell.viewModel = Property(value: cellViewModels[indexPath.row])
+        switch indexPath.section {
+        case 0:
+            cell.viewModel = cellViewModels[.pending]?[indexPath.row]
+        case 1:
+            cell.viewModel = cellViewModels[.completed]?[indexPath.row]
+        default:
+            cell.viewModel = nil
+        }
         return cell
     }
 }
 
+extension TodoViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Pending"
+        case 1:
+            return "Completed"
+        default:
+            return ""
+        }
+    }
+}

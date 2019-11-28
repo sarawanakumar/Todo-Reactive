@@ -19,12 +19,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
 
-        let viewController = UIStoryboard(
+        let navigationController = UIStoryboard(
             name: "Main",
             bundle: nil
-        ).instantiateInitialViewController() as? TodoViewController
-        viewController?.viewModel = TodoViewModel(name: "")
-        window?.rootViewController = viewController
+        ).instantiateInitialViewController() as? UINavigationController
+        let viewController = navigationController?.topViewController as? TodoViewController
+        viewController?.viewModel = TodoViewModel(service: TodoService())
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

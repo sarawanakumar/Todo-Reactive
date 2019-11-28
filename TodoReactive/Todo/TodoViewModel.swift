@@ -13,18 +13,22 @@ class TodoViewModel: BaseViewModel {
     let input = Feedback<State, Event>.input()
     let state: Property<State>
 
-    convenience init(name: String) {
-        self.init(State(items: []), UIScheduler())
+    convenience init(service: TodoService = TodoService()) {
+        self.init(
+            initial: State(items: [:]),
+            scheduler: UIScheduler(),
+            service: service
+        )
     }
 
-    init(_ initial: State, _ scheduler: Scheduler) {
+    init(initial: State, scheduler: Scheduler, service: TodoService) {
         state = Property(
             initial: initial,
             scheduler: scheduler,
             reduce: TodoViewModel.reduce,
             feedbacks: [
                 input.feedback,
-                TodoViewModel.whenLoading(TodoService())
+                TodoViewModel.whenLoading(service)
             ]
         )
     }
@@ -45,29 +49,29 @@ class TodoViewModel: BaseViewModel {
 
     static func reduce(state: State, event: Event) -> State {
         switch event {
-        case .didLoad(let todo):
+        case .didLoad(let todos):
             return state.with {
-                $0.items = todo
+                $0.items = TodoElement.arrangedTasks(todos: todos)
                 $0.pageStatus = .displayed
             }
         case .ui(.toggleTask(let taskId)):
-            return state.with {
-                guard let task = $0.items
-                    .filter({$0.id == taskId})
-                    .first else { return }
-
-                var newTask = task
-                newTask.isTodoCompleted = !task.isTodoCompleted
-
-                $0.items.removeAll(where: {$0.id == taskId})
-                $0.items.append(newTask)
-                $0.items.sort { $0.id < $1.id }
+            return state.with { s in
+//                guard let task = $0.items
+//                    .filter({$0.id == taskId})
+//                    .first else { return }
+//
+//                var newTask = task
+//                newTask.isTodoCompleted = !task.isTodoCompleted
+//
+//                $0.items.removeAll(where: {$0.id == taskId})
+//                $0.items.append(newTask)
+//                $0.items.sort { $0.id < $1.id }
             }
         }
     }
 
     struct State: Then {
-        var items: Todo
+        var items: [TodoElement.TodoStatus: Todo]
         var pageStatus: Status = .loading
 
         enum Status {

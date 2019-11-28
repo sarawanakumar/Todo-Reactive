@@ -14,13 +14,11 @@ class TodoTableViewCell: UITableViewCell {
     @IBOutlet weak var isCompletedSwitch: UISwitch!
     private var switchDidToggle: (() -> Void)?
 
-    var viewModel: Property<TodoCellViewModel>! {
+    var viewModel: TodoCellViewModel! {
         didSet {
-            viewModel.producer.startWithValues { [unowned self] model in
-                self.itemDescriptionLabel.text = model.name
-                self.isCompletedSwitch.setOn(model.isCompleted, animated: true)
-                self.switchDidToggle = model.taskToggled
-            }
+            self.itemDescriptionLabel.text = viewModel.name
+            self.isCompletedSwitch.setOn(viewModel.isCompleted, animated: true)
+            self.switchDidToggle = viewModel.taskToggled
         }
     }
 

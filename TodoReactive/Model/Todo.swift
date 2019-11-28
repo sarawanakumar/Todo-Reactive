@@ -13,17 +13,30 @@ struct TodoElement: Codable {
     let todoDescription, scheduledDate: String
     var status: String
 
-    var isTodoCompleted: Bool {
+    var todoStatus: TodoStatus {
         get {
             if status == "COMPLETED" {
-                return true
+                return .completed
             }
 
-            return false
+            return .pending
         }
         set {
-            status = newValue ? "COMPLETED" : "PENDING"
+            status = newValue == .completed ? "COMPLETED" : "PENDING"
         }
+    }
+
+    static func arrangedTasks(todos: Todo) -> [TodoStatus: Todo] {
+        let completedTodos = todos.filter({$0.todoStatus == .completed})
+        let pendingTodos = todos.filter({$0.todoStatus == .pending})
+
+        return [.completed: completedTodos, .pending: pendingTodos]
+    }
+
+
+    enum TodoStatus {
+        case completed
+        case pending
     }
 
     enum CodingKeys: String, CodingKey {
