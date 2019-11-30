@@ -28,31 +28,35 @@ class TodoViewController: BaseViewController<TodoViewModel> {
     override func refresh(_ state: TodoViewModel.State) {
         switch state.pageStatus {
         case .displayed:
-            let allStatus: [TodoElement.TodoStatus] = [.completed, .pending]
-            for status in allStatus {
-                cellViewModels[status] = state.items[status]?
-                    .map { todoItem in
-                        TodoCellViewModel(
-                            name: todoItem.todoDescription,
-                            isCompleted: todoItem.todoStatus == .completed,
-                            dueDate: todoItem.formattedDate,
-                            taskToggled: { [weak self] in
-                                self?.send?(
-                                    .toggleTask(
-                                        id: todoItem.id,
-                                        currentStatus: todoItem.todoStatus
-                                    )
-                                )
-                            }
-                        )
-                }
-            }
-            tableView.reloadData()
+            renderView(for: state.items)
         case .failed:
             ()
         case .loading:
             ()
         }
+    }
+
+    private func renderView(for data: [TodoStatus: Todo]) {
+        let allStatus: [TodoStatus] = [.completed, .pending]
+        for status in allStatus {
+            cellViewModels[status] = data[status]?
+                .map { todoItem in
+                    TodoCellViewModel(
+                        name: todoItem.todoDescription,
+                        isCompleted: todoItem.todoStatus == .completed,
+                        dueDate: todoItem.formattedDate,
+                        taskToggled: { [weak self] in
+                            self?.send?(
+                                .toggleTask(
+                                    id: todoItem.id,
+                                    currentStatus: todoItem.todoStatus
+                                )
+                            )
+                        }
+                    )
+            }
+        }
+        tableView.reloadData()
     }
 }
 

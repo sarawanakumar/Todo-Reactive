@@ -15,7 +15,7 @@ class TodoViewModel: BaseViewModel {
 
     convenience init(service: TodoService) {
         self.init(
-            initial: State(items: [:]),
+            initial: State(),
             scheduler: UIScheduler(),
             service: service
         )
@@ -34,13 +34,29 @@ class TodoViewModel: BaseViewModel {
     }
 
     static func whenLoading(_ todoService: TodoService) -> Feedback<State, Event> {
-        return Feedback(predicate: { (state: State) in
-            state.pageStatus == .loading
-        }) { _ -> SignalProducer<Event, Never> in
-            return todoService.getTodoList()
-                .map { .didLoad($0) }
-                .flatMapError { _ in .never }
+        func todoDictionary(todos: Todo) -> [TodoStatus: Todo] {
+            return Dictionary(
+                uniqueKeysWithValues: TodoStatus.allCases
+                    .flatMap { status -> [TodoStatus: Todo] in
+                        [status: todos.filter {$0.todoStatus == status}]
+                    }
+                )
         }
+
+        return Feedback(
+            predicate: { state in
+                state.pageStatus == .loading
+                }
+            ) { _ -> SignalProducer<Event, Never> in
+                todoService.getTodoList()
+                    .map { .didLoad(todoDictionary(todos: $0)) }
+                    .flatMapError { error in
+                        .init(
+                            value: .didFail(message: error.localizedDescription
+                            )
+                        )
+                    }
+                }
     }
 
     func send(action: Action) {
@@ -51,8 +67,12 @@ class TodoViewModel: BaseViewModel {
         switch event {
         case .didLoad(let todos):
             return state.with {
-                $0.items = TodoElement.arrangedTasks(todos: todos)
+                $0.items = todos
                 $0.pageStatus = .displayed
+            }
+        case .didFail(let message):
+            return state.with {
+                $0.pageStatus = .failed(message)
             }
         case .ui(.toggleTask(let taskId, let taskStatus)):
             return state.with {
@@ -69,18 +89,19 @@ class TodoViewModel: BaseViewModel {
     }
 
     struct State: Then {
-        var items: [TodoElement.TodoStatus: Todo]
+        var items = [TodoElement.TodoStatus: Todo]()
         var pageStatus: Status = .loading
 
-        enum Status {
+        enum Status: Equatable {
             case loading
             case displayed
-            case failed
+            case failed(String)
         }
     }
 
     enum Event {
-        case didLoad(Todo)
+        case didLoad([TodoStatus: Todo])
+        case didFail(message: String)
         case ui(Action)
     }
 

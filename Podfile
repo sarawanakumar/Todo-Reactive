@@ -9,7 +9,6 @@ target 'TodoReactive' do
 
   target 'TodoReactiveTests' do
     inherit! :search_paths
-    # Pods for testing
   end
 
   pod 'ReactiveCocoa'

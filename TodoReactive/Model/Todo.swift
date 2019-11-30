@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias TodoStatus = TodoElement.TodoStatus
+
 struct TodoElement: Codable {
     let id: Int
     let todoDescription, scheduledDate: String
@@ -36,6 +38,12 @@ struct TodoElement: Codable {
     }
 
     static func arrangedTasks(todos: Todo) -> [TodoStatus: Todo] {
+        let todos1 = TodoStatus.allCases.flatMap { status in
+            [
+                status: todos.filter({$0.todoStatus == status})
+            ]
+        }
+        return Dictionary(todos1, uniquingKeysWith: {(first,_) in first})
         let completedTodos = todos.filter({$0.todoStatus == .completed})
         let pendingTodos = todos.filter({$0.todoStatus == .pending})
 
@@ -43,7 +51,7 @@ struct TodoElement: Codable {
     }
 
 
-    enum TodoStatus {
+    enum TodoStatus: CaseIterable {
         case completed
         case pending
 
