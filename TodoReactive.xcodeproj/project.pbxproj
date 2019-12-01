@@ -15,6 +15,7 @@
 		152AFE75238D3DA700747492 /* Feedback+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AFE74238D3DA700747492 /* Feedback+Extension.swift */; };
 		152AFE7E238D48B700747492 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152AFE7C238D48B700747492 /* TodoTableViewCell.swift */; };
 		152AFE7F238D48B700747492 /* TodoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 152AFE7D238D48B700747492 /* TodoTableViewCell.xib */; };
+		156AEE1F2392C27600936F74 /* BaseViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156AEE1E2392C27600936F74 /* BaseViewModelTest.swift */; };
 		1573E5CA238CEB7F0074F9FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573E5C9238CEB7F0074F9FC /* AppDelegate.swift */; };
 		1573E5CC238CEB7F0074F9FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573E5CB238CEB7F0074F9FC /* SceneDelegate.swift */; };
 		1573E5CE238CEB7F0074F9FC /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573E5CD238CEB7F0074F9FC /* TodoViewController.swift */; };
@@ -49,6 +50,7 @@
 		152AFE74238D3DA700747492 /* Feedback+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feedback+Extension.swift"; sourceTree = "<group>"; };
 		152AFE7C238D48B700747492 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		152AFE7D238D48B700747492 /* TodoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoTableViewCell.xib; sourceTree = "<group>"; };
+		156AEE1E2392C27600936F74 /* BaseViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModelTest.swift; sourceTree = "<group>"; };
 		1573E5C6238CEB7F0074F9FC /* TodoReactive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoReactive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1573E5C9238CEB7F0074F9FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1573E5CB238CEB7F0074F9FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			children = (
 				1573E5E0238CEB820074F9FC /* TodoReactiveTests.swift */,
 				1573E5E2238CEB820074F9FC /* Info.plist */,
+				156AEE1E2392C27600936F74 /* BaseViewModelTest.swift */,
 			);
 			path = TodoReactiveTests;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1573E5E1238CEB820074F9FC /* TodoReactiveTests.swift in Sources */,
+				156AEE1F2392C27600936F74 /* BaseViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

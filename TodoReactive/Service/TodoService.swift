@@ -8,13 +8,16 @@
 
 import ReactiveSwift
 
-class TodoService {
+protocol TodoServiceContract {
+    func getTodoList() -> SignalProducer<Todo, Error>
+}
+
+struct TodoService: TodoServiceContract {
     var url: URL? {
         var components = URLComponents()
         components.scheme = "http"
         components.host = "www.mocky.io"
         components.path = "/v2/582695f5100000560464ca40"
-    //    components.queryItems = queryItems
 
         return components.url
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -24,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             bundle: nil
         ).instantiateInitialViewController() as? UINavigationController
         let viewController = navigationController?.topViewController as? TodoViewController
-        viewController?.viewModel = TodoViewModel(service: TodoService())
+        viewController?.viewModel = TodoViewModel(service: TodoService(), scheduler: UIScheduler())
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }

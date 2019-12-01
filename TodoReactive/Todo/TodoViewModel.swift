@@ -13,15 +13,15 @@ class TodoViewModel: BaseViewModel {
     let input = Feedback<State, Event>.input()
     let state: Property<State>
 
-    convenience init(service: TodoService) {
+    convenience init(service: TodoServiceContract, scheduler: Scheduler) {
         self.init(
             initial: State(),
-            scheduler: UIScheduler(),
+            scheduler: scheduler,
             service: service
         )
     }
 
-    init(initial: State, scheduler: Scheduler, service: TodoService) {
+    init(initial: State, scheduler: Scheduler, service: TodoServiceContract) {
         state = Property(
             initial: initial,
             scheduler: scheduler,
@@ -33,7 +33,7 @@ class TodoViewModel: BaseViewModel {
         )
     }
 
-    static func whenLoading(_ todoService: TodoService) -> Feedback<State, Event> {
+    static func whenLoading(_ todoService: TodoServiceContract) -> Feedback<State, Event> {
         func todoDictionary(todos: Todo) -> [TodoStatus: Todo] {
             return Dictionary(
                 uniqueKeysWithValues: TodoStatus.allCases
