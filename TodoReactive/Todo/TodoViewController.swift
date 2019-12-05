@@ -11,7 +11,7 @@ import ReactiveSwift
 
 class TodoViewController: BaseViewController<TodoViewModel> {
     @IBOutlet weak var tableView: UITableView!
-    var cellViewModels = [TodoElement.TodoStatus: [TodoCellViewModel]]()
+    var dataSource: TodoDataSource<TodoStatus, TodoCellViewModel>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,7 @@ class TodoViewController: BaseViewController<TodoViewModel> {
             ),
             forCellReuseIdentifier: "todoCell"
         )
+        self.dataSource = makeDataSource()
     }
 
     override func refresh(_ state: TodoViewModel.State) {
@@ -37,11 +38,12 @@ class TodoViewController: BaseViewController<TodoViewModel> {
     }
 
     private func renderView(for data: [TodoStatus: Todo]) {
-        let allStatus: [TodoStatus] = [.completed, .pending]
-        for status in allStatus {
+        var cellViewModels = [TodoElement.TodoStatus: [TodoCellViewModel]]()
+        [.completed, .pending].forEach { status in
             cellViewModels[status] = data[status]?
                 .map { todoItem in
                     TodoCellViewModel(
+                        id: todoItem.id,
                         name: todoItem.todoDescription,
                         isCompleted: todoItem.todoStatus == .completed,
                         dueDate: todoItem.formattedDate,
@@ -56,50 +58,27 @@ class TodoViewController: BaseViewController<TodoViewModel> {
                     )
             }
         }
-        tableView.reloadData()
+        updateTableView(with: cellViewModels)
     }
 }
 
-extension TodoViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return cellViewModels.count
-    }
+extension TodoViewController {
+    func makeDataSource() -> TodoDataSource<TodoStatus, TodoCellViewModel> {
+        return TodoDataSource(tableView: tableView) { (tableView, ip, cellViewModel) -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: ip) as? TodoTableViewCell
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return cellViewModels[.pending]?.count ?? 0
-        case 1:
-            return cellViewModels[.completed]?.count ?? 0
-        default:
-            return 0
+            cell?.viewModel = cellViewModel
+            return cell
         }
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoTableViewCell else { return UITableViewCell() }
+    func updateTableView(with models: [TodoElement.TodoStatus: [TodoCellViewModel]]) {
+        var snapshot = NSDiffableDataSourceSnapshot<TodoStatus, TodoCellViewModel>()
 
-        switch indexPath.section {
-        case 0:
-            cell.viewModel = cellViewModels[.pending]?[indexPath.row]
-        case 1:
-            cell.viewModel = cellViewModels[.completed]?[indexPath.row]
-        default:
-            cell.viewModel = nil
+        snapshot.appendSections([.completed, .pending])
+        models.forEach { (key, value) in
+            snapshot.appendItems(value, toSection: key)
         }
-        return cell
-    }
-}
-
-extension TodoViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Pending"
-        case 1:
-            return "Completed"
-        default:
-            return ""
-        }
+        dataSource.apply(snapshot)
     }
 }

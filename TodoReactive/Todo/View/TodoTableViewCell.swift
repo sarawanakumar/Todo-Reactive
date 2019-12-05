@@ -29,9 +29,18 @@ class TodoTableViewCell: UITableViewCell {
     }
 }
 
-struct TodoCellViewModel {
+struct TodoCellViewModel: Hashable {
+    var id: Int
     var name: String
     var isCompleted: Bool
     var dueDate: String
     var taskToggled: () -> Void
+
+    static func == (lhs: TodoCellViewModel, rhs: TodoCellViewModel) -> Bool {
+        return (lhs.name == rhs.name) && (lhs.isCompleted == rhs.isCompleted) && (lhs.dueDate == rhs.dueDate)
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
 }

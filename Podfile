@@ -10,8 +10,6 @@ target 'TodoReactive' do
   target 'TodoReactiveTests' do
     inherit! :search_paths
   end
-
   pod 'ReactiveCocoa'
   pod 'ReactiveFeedback'
-
 end

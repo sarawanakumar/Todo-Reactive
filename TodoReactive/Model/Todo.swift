@@ -51,9 +51,9 @@ struct TodoElement: Codable {
     }
 
 
-    enum TodoStatus: CaseIterable {
-        case completed
-        case pending
+    enum TodoStatus: String, CaseIterable {
+        case completed = "Completed"
+        case pending = "Pending"
 
         mutating func toggle() {
             switch self {
