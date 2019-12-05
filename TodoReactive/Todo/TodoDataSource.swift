@@ -13,9 +13,9 @@ class TodoDataSource<Section: Hashable, Item
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return TodoStatus.pending.rawValue
-        case 1:
             return TodoStatus.completed.rawValue
+        case 1:
+            return TodoStatus.pending.rawValue
         default:
             return ""
         }
