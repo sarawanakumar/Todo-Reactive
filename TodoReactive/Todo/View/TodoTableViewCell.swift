@@ -36,6 +36,14 @@ struct TodoCellViewModel: Hashable {
     var dueDate: String
     var taskToggled: () -> Void
 
+    init(todo: TodoElement, onToggle: @escaping () -> Void) {
+        self.id = todo.id
+        self.name = todo.todoDescription
+        self.isCompleted = todo.todoStatus == .completed
+        self.dueDate = todo.formattedDate
+        self.taskToggled = onToggle
+    }
+
     static func == (lhs: TodoCellViewModel, rhs: TodoCellViewModel) -> Bool {
         return (lhs.name == rhs.name) && (lhs.isCompleted == rhs.isCompleted) && (lhs.dueDate == rhs.dueDate)
     }

@@ -38,24 +38,16 @@ class TodoViewController: BaseViewController<TodoViewModel> {
     }
 
     private func renderView(for data: [TodoStatus: Todo]) {
-        var cellViewModels = [TodoElement.TodoStatus: [TodoCellViewModel]]()
-        [.completed, .pending].forEach { status in
-            cellViewModels[status] = data[status]?
-                .map { todoItem in
-                    TodoCellViewModel(
-                        id: todoItem.id,
-                        name: todoItem.todoDescription,
-                        isCompleted: todoItem.todoStatus == .completed,
-                        dueDate: todoItem.formattedDate,
-                        taskToggled: { [weak self] in
-                            self?.send?(
-                                .toggleTask(
-                                    id: todoItem.id,
-                                    currentStatus: todoItem.todoStatus
-                                )
-                            )
-                        }
+        let cellViewModels = data.mapValues {
+            $0.map { todo in
+                TodoCellViewModel(todo: todo) { [unowned self] in
+                    self.send(
+                        .toggleTask(
+                            id: todo.id,
+                            currentStatus: todo.todoStatus
+                        )
                     )
+                }
             }
         }
         updateTableView(with: cellViewModels)
@@ -64,18 +56,18 @@ class TodoViewController: BaseViewController<TodoViewModel> {
 
 extension TodoViewController {
     func makeDataSource() -> TodoDataSource<TodoStatus, TodoCellViewModel> {
-        return TodoDataSource(tableView: tableView) { (tableView, ip, cellViewModel) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: ip) as? TodoTableViewCell
+        return TodoDataSource(tableView: tableView) { (tableView, indexPath, cellViewModel) in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as? TodoTableViewCell
 
             cell?.viewModel = cellViewModel
             return cell
         }
     }
 
-    func updateTableView(with models: [TodoElement.TodoStatus: [TodoCellViewModel]]) {
+    func updateTableView(with models: [TodoStatus: [TodoCellViewModel]]) {
         var snapshot = NSDiffableDataSourceSnapshot<TodoStatus, TodoCellViewModel>()
 
-        snapshot.appendSections([.completed, .pending])
+        snapshot.appendSections(TodoStatus.allCases)
         models.forEach { (key, value) in
             snapshot.appendItems(value, toSection: key)
         }

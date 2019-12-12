@@ -5,16 +5,17 @@ protocol View {
     associatedtype State
     associatedtype Action
 
-    var send: ((Action) -> Void)? { get set }
+    var send: ((Action) -> Void)! { get set }
     func refresh(_ state: State)
 }
 
 class BaseViewController<ViewModel: BaseViewModel>: UIViewController, View {
     typealias State = ViewModel.State
     typealias Action = ViewModel.Action
+    typealias Sink<Action> = (Action) -> Void
 
     var viewModel: ViewModel?
-    var send: ((Action) -> Void)?
+    var send: ((Action) -> Void)!
 
     func refresh(_ state: ViewModel.State) {}
 

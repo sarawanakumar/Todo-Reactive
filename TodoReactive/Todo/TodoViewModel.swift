@@ -78,7 +78,7 @@ class TodoViewModel: BaseViewModel {
             return state.with {
                 guard let task = $0.items[taskStatus]?
                     .first(where: { $0.id == taskId }) else { return }
-
+                
                 $0.items[taskStatus]?.removeAll { $0.id == taskId }
 
                 var newTask = task
@@ -106,6 +106,6 @@ class TodoViewModel: BaseViewModel {
     }
 
     enum Action {
-        case toggleTask(id: Int, currentStatus: TodoElement.TodoStatus)
+        case toggleTask(id: Int, currentStatus: TodoStatus)
     }
 }
