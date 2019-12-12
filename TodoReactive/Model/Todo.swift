@@ -44,10 +44,6 @@ struct TodoElement: Codable {
             ]
         }
         return Dictionary(todos1, uniquingKeysWith: {(first,_) in first})
-        let completedTodos = todos.filter({$0.todoStatus == .completed})
-        let pendingTodos = todos.filter({$0.todoStatus == .pending})
-
-        return [.completed: completedTodos, .pending: pendingTodos]
     }
 
 
